@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Counter extends StatefulWidget {
-  const Counter({super.key});
+  const new({super.key});
 
   @override
   State<Counter> createState() => _CounterState();
@@ -9,13 +9,43 @@ class Counter extends StatefulWidget {
 
 class _CounterState extends State<Counter> {
   int count = 0;
+  final inputController = TextEditingController();
+  String errorText = '';
+
+  // get the input
+  void getNumber() {
+    String input = inputController.text.trim();
+    inputController.clear();
+
+    // check empty input
+    if (input.isEmpty) {
+      setState(() {
+        errorText = 'Error: no input';
+      });
+      return;
+    }
+    // check for integer input
+    int? num = int.tryParse(input);
+    if (num == null) {
+      setState(() {
+        errorText = 'Error: integer only';
+      });
+      return;
+    }
+    // update the counter
+    setState(() {
+      count = num;
+      errorText = '';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Counter app')),
       body: Column(
         children: [
-          Text('Count: $count'),
+          Text('Counter = $count'),
           ElevatedButton(
             onPressed: () {
               setState(() {
@@ -26,14 +56,17 @@ class _CounterState extends State<Counter> {
           ),
           SizedBox(height: 16),
           Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
+              controller: inputController,
               decoration: InputDecoration(
-                hintText: 'Enter a number',
+                hint: Text('Enter a number'),
                 border: OutlineInputBorder(),
               ),
             ),
           ),
+          ElevatedButton(onPressed: getNumber, child: Text('Submit')),
+          Text(errorText),
         ],
       ),
       floatingActionButton: Column(
@@ -47,7 +80,7 @@ class _CounterState extends State<Counter> {
             },
             child: Icon(Icons.add),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 8),
           FloatingActionButton(
             onPressed: () {
               setState(() {
