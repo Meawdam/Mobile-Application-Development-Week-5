@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/counter.dart';
+import 'package:frontend/todo.dart';
 
 void main() {
-  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Counter()));
+  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Todo()));
 }
