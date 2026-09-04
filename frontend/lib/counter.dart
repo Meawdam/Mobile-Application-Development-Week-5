@@ -13,14 +13,36 @@ class _CounterState extends State<Counter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Counter app')),
-      body: Text('Counter = $count'),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            count++;
-          });
-        },
-        child: Icon(Icons.add),
+      body: Column(
+        children: [
+          Text('Count: $count'),
+          ElevatedButton(onPressed: () {
+            setState(() {
+              count = 0;
+            });
+          }, child: Text('Reset')),
+        ],
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                count++;
+              });
+            },
+            child: Icon(Icons.add),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                count--;
+              });
+            },
+            child: Icon(Icons.remove),
+          ),
+        ],
       ),
     );
   }
