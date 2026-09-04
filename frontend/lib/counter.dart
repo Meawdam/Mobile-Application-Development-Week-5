@@ -16,11 +16,24 @@ class _CounterState extends State<Counter> {
       body: Column(
         children: [
           Text('Count: $count'),
-          ElevatedButton(onPressed: () {
-            setState(() {
-              count = 0;
-            });
-          }, child: Text('Reset')),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                count = 0;
+              });
+            },
+            child: Text('Reset'),
+          ),
+          SizedBox(height: 16),
+          Padding(
+            padding: EdgeInsets.all(16),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Enter a number',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
         ],
       ),
       floatingActionButton: Column(
