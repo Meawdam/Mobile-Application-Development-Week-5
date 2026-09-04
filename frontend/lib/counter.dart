@@ -34,6 +34,7 @@ class _CounterState extends State<Counter> {
             },
             child: Icon(Icons.add),
           ),
+          SizedBox(height: 10),
           FloatingActionButton(
             onPressed: () {
               setState(() {
