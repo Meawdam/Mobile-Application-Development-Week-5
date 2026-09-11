@@ -41,7 +41,7 @@ class WeddingCard extends StatelessWidget {
                 '345 Moo 1 Tasud Chiang Rai, Thailand',
                 style: TextStyle(color: Colors.grey),
               ),
-              SizedBox(height: 16,)
+              SizedBox(height: 16),
             ],
           ),
         ),
