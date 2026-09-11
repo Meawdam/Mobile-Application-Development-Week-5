@@ -9,6 +9,40 @@ class Calculator extends StatefulWidget {
 
 class _CalculatorState extends State<Calculator> {
   String result = '';
+  final firstNumController = TextEditingController();
+  final secondNumController = TextEditingController();
+
+  void sum() {
+    String firstNumString = firstNumController.text.trim();
+    String secondNumString = secondNumController.text.trim();
+    if (firstNumString.isEmpty || secondNumString.isEmpty) {
+      setState(() {
+        result = 'Please enter both of fields';
+      });
+      return;
+    }
+
+    int? firstNum = int.tryParse(firstNumString);
+    int? secondNum = int.tryParse(secondNumString);
+    if (firstNum == null || secondNum == null) {
+      setState(() {
+        result = 'Incorrect input';
+      });
+      return;
+    }
+    setState(() {
+      result = 'Result = ${firstNum + secondNum}';
+    });
+  }
+
+  void clear() {
+    setState(() {
+      firstNumController.clear();
+      secondNumController.clear();
+      result = '';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +56,7 @@ class _CalculatorState extends State<Calculator> {
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(hint: Text('First number')),
+                      controller: firstNumController,
                     ),
                   ),
                   SizedBox(width: 12),
@@ -30,6 +65,7 @@ class _CalculatorState extends State<Calculator> {
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(hint: Text('Second number')),
+                      controller: secondNumController,
                     ),
                   ),
                 ],
@@ -39,7 +75,7 @@ class _CalculatorState extends State<Calculator> {
                 mainAxisAlignment: .center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: sum,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.lightBlueAccent,
                     ),
@@ -50,7 +86,7 @@ class _CalculatorState extends State<Calculator> {
                   ),
                   SizedBox(width: 16),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: clear,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                     ),
@@ -58,6 +94,7 @@ class _CalculatorState extends State<Calculator> {
                   ),
                 ],
               ),
+              SizedBox(height: 16),
               Text(result, style: TextStyle(color: Colors.red)),
             ],
           ),
